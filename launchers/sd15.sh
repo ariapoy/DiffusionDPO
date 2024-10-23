@@ -1,4 +1,4 @@
-export MODEL_NAME="runwayml/stable-diffusion-v1-5"
+export MODEL_NAME="botp/stable-diffusion-v1-5"
 export DATASET_NAME="yuvalkirstain/pickapic_v2"
 
 # Effective BS will be (N_GPU * train_batch_size * gradient_accumulation_steps)
@@ -7,14 +7,14 @@ export DATASET_NAME="yuvalkirstain/pickapic_v2"
 accelerate launch train.py \
   --pretrained_model_name_or_path=$MODEL_NAME \
   --dataset_name=$DATASET_NAME \
-  --train_batch_size=1 \
+  --train_batch_size=2 \
   --dataloader_num_workers=16 \
   --gradient_accumulation_steps=128 \
-  --max_train_steps=2000 \
+  --max_train_steps=6000 \
   --lr_scheduler="constant_with_warmup" --lr_warmup_steps=500 \
   --learning_rate=1e-8 --scale_lr \
-  --cache_dir="/export/share/datasets/vision_language/pick_a_pic_v2/" \
-  --checkpointing_steps 500 \
-  --beta_dpo 5000 \
-   --output_dir="tmp-sd15"
+  --cache_dir="/work/u7335737/pickapics/" \
+  --checkpointing_steps 100 \
+  --beta_dpo 2000 \
+   --output_dir="huggingface_version"
 
